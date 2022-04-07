@@ -1,0 +1,15 @@
+.form-login {
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-cadastro {
+  background-color: #614EA6;
+  transition: 0.2s filter ease-in-out;
+}
+
+.btn-cadastro:hover {
+  filter: brightness(1.2);
+  transform: scale(1.01);
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import './login.css'
 import firebase from '../../config/firebase'
 import 'firebase/auth'
+import './login.css'
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -72,9 +72,9 @@ export default function Login() {
         </div>
 
         <div className="opcoes-login m-4">
-          <a href="#" className="mx-2">Recuperar Senha</a>
+          <a href="/" className="mx-2">Recuperar Senha</a>
           <span className="my-span">&#9788;</span>
-          <a href="#" className="mx-2">Quero Cadastrar</a>
+          <a href="/" className="mx-2">Quero Cadastrar</a>
         </div>
       </form>
     </div>
