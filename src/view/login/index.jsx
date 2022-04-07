@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import firebase from '../../config/firebase'
 import 'firebase/auth'
 import './login.css'
@@ -7,22 +9,24 @@ export default function Login() {
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
   const [logado, setLogado] = useState("")
-
+  const [loading, setLoading] = useState(false)
 
   function logar() {
     if (!email || !senha) {
       return
     }
 
+    setLoading(true)
     const auth = firebase.auth()
 
     auth.signInWithEmailAndPassword(email, senha)
       .then(resp => {
         setLogado("sim")
-        console.log(resp)
+        setLoading(false)
       })
       .catch(erro => {
         setLogado("não")
+        setLoading(false)
       })
   }
 
@@ -52,12 +56,16 @@ export default function Login() {
           <label htmlFor="floatingPassword">Senha</label>
         </div>
 
-        <button
-          className="w-100 btn btn-lg btn-primary btn-login"
-          type="button"
-          onClick={logar}
+        <button type="button" onClick={ logar }
+          className={`
+            w-100 btn btn-lg btn-primary btn-login ${loading && "disabled"}
+          `}
         >
-          Entrar
+          {
+            loading &&
+              <span className="spinner-border spinner-border-sm text-light"></span>
+          }
+          <span className="px-2">Entrar</span>
         </button>
 
         <div className="msg-login text-center span my-4">
@@ -74,7 +82,7 @@ export default function Login() {
         <div className="opcoes-login m-4">
           <a href="/" className="mx-2">Recuperar Senha</a>
           <span className="my-span">&#9788;</span>
-          <a href="/" className="mx-2">Quero Cadastrar</a>
+          <Link to="/signup" className="mx-2">Quero Cadastrar</Link>
         </div>
       </form>
     </div>

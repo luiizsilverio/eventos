@@ -6,10 +6,10 @@
 
 .btn-cadastro {
   background-color: #614EA6;
-  transition: 0.2s filter ease-in-out;
+  transition: 0.2s;
 }
 
 .btn-cadastro:hover {
   filter: brightness(1.2);
-  transform: scale(1.01);
+  transform: scale(0.99);
 }
