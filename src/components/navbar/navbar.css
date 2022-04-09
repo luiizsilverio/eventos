@@ -1,0 +1,7 @@
+.navbar {
+  background-color: lavender;
+}
+
+a.nav-link:hover {
+  color: white !important;
+}

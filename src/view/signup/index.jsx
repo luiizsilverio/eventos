@@ -1,7 +1,9 @@
 import { useState } from "react";
 import firebase from '../../config/firebase'
 import 'firebase/auth'
+
 import './signup.css'
+import Navbar from '../../components/navbar'
 
 export default function Signup() {
   const [email, setEmail] = useState("")
@@ -45,48 +47,51 @@ export default function Signup() {
   }
 
   return (
-    <div className="form-cadastro">
-      <form className="text-center form-login mx-auto mt-5">
-        <h3 className="mb-3 text-black fw-bold">Cadastro</h3>
+    <>
+      <Navbar />
+      <div className="form-cadastro">
+        <form className="text-center form-login mx-auto mt-5">
+          <h3 className="mb-3 text-black fw-bold">Cadastro</h3>
 
-        <input type="email"
-          className="form-control my-2"
-          placeholder="E-mail"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input type="password"
-          className="form-control my-2"
-          placeholder="Senha"
-          required
-          onChange={(e) => setSenha(e.target.value)}
-        />
+          <input type="email"
+            className="form-control my-2"
+            placeholder="E-mail"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input type="password"
+            className="form-control my-2"
+            placeholder="Senha"
+            required
+            onChange={(e) => setSenha(e.target.value)}
+          />
 
-        <button type="button" onClick={ cadastrar }
-          className={`
-            btn btn-lg mt-2 mb-5 text-white
-            btn-cadastro ${loading && "disabled"}
-          `}
-        >
-          {
-            loading &&
-              <span className="spinner-border spinner-border-sm text-light"></span>
-          }
-          <span className="px-2">Cadastrar</span>
-        </button>
+          <button type="button" onClick={ cadastrar }
+            className={`
+              btn btn-lg mt-2 mb-5 text-white
+              btn-cadastro ${loading && "disabled"}
+            `}
+          >
+            {
+              loading &&
+                <span className="spinner-border spinner-border-sm text-light"></span>
+            }
+            <span className="px-2">Cadastrar</span>
+          </button>
 
-        <div className="msg-login text-black text-center span my-4">
-          {
-            !erro && !!mensagem &&
-              <span className="my-span">{ mensagem } &#128526;</span>
-          }
-          {
-            erro && !!mensagem &&
-              <span className="my-span">{ mensagem } &#128577;</span>
-          }
-        </div>
+          <div className="msg-login text-black text-center span my-4">
+            {
+              !erro && !!mensagem &&
+                <span className="my-span">{ mensagem } &#128526;</span>
+            }
+            {
+              erro && !!mensagem &&
+                <span className="my-span">{ mensagem } &#128577;</span>
+            }
+          </div>
 
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   )
 }

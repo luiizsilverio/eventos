@@ -2,7 +2,7 @@
   width: 100%;
   padding: 15%;
   margin: auto;
-  background-color: #614EA6;
+  background-color: lavender;
   height: 100vh;
 }
 
@@ -18,4 +18,14 @@
 
 .my-span {
   color: #f2f2c2;
+}
+
+.btn {
+  background-color:  #614EA6;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  filter: brightness(1.2);
+  transform: scale(0.99);
 }

@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className="login-content d-flex align-items-center">
       <form className="form-signin mx-auto">
-        <h1 className="h3 mb-3 fw-normal text-white fw-bold">Log In</h1>
+        <h1 className="h3 mb-3 fw-normal text-secondary fw-bold">Log In</h1>
 
         <div className="form-floating my-2">
           <input type="email"
@@ -58,12 +58,12 @@ export default function Login() {
 
         <button type="button" onClick={ logar }
           className={`
-            w-100 btn btn-lg btn-primary btn-login ${loading && "disabled"}
+            w-100 btn btn-lg btn-login text-white ${loading && "disabled"}
           `}
         >
           {
             loading &&
-              <span className="spinner-border spinner-border-sm text-light"></span>
+              <span className="spinner-border spinner-border-sm text-secondary"></span>
           }
           <span className="px-2">Entrar</span>
         </button>
@@ -71,18 +71,18 @@ export default function Login() {
         <div className="msg-login text-center span my-4">
           {
             logado === 'sim' &&
-              <span className="my-span">Você está conectado! &#128526;</span>
+              <span className="my-span text-primary">Você está conectado! &#128526;</span>
           }
           {
             logado === 'não' &&
-              <span className="my-span">Ops! Verifique se a senha ou usuário estão corretos! &#128577;</span>
+              <span className="my-span text-danger">Ops! Verifique se a senha ou usuário estão corretos! &#128577;</span>
           }
         </div>
 
         <div className="opcoes-login m-4">
-          <a href="/" className="mx-2">Recuperar Senha</a>
-          <span className="my-span">&#9788;</span>
-          <Link to="/signup" className="mx-2">Quero Cadastrar</Link>
+          <a href="/" className="mx-2 text-info">Recuperar Senha</a>
+          <span className="my-span text-info">&#9788;</span>
+          <Link to="/signup" className="mx-2 text-info">Quero Cadastrar</Link>
         </div>
       </form>
     </div>
