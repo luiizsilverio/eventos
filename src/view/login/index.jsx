@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link, Navigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import firebase from '../../config/firebase'
 import 'firebase/auth'
 import './login.css'
@@ -10,6 +10,8 @@ export default function Login() {
   const [senha, setSenha] = useState("")
   const [logado, setLogado] = useState("")
   const [loading, setLoading] = useState(false)
+
+  const dispatch = useDispatch()
 
   function logar() {
     if (!email || !senha) {
@@ -23,6 +25,9 @@ export default function Login() {
       .then(resp => {
         setLogado("sim")
         setLoading(false)
+        setTimeout(() => {
+          dispatch({ type: 'LOG_IN', email })
+        }, 2000);
       })
       .catch(erro => {
         setLogado("não")
@@ -32,6 +37,10 @@ export default function Login() {
 
   return (
     <div className="login-content d-flex align-items-center">
+      {
+        useSelector(state => state.logado) &&
+          <Navigate replace to="/" />
+      }
       <form className="form-signin mx-auto">
         <h1 className="h3 mb-3 fw-normal text-secondary fw-bold">Log In</h1>
 

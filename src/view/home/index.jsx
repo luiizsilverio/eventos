@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Navbar from '../../components/navbar'
 
@@ -8,6 +9,9 @@ import './home.css'
 
 export default function Home() {
   return (
-    <Navbar />
+    <>
+      <Navbar />
+      <h1>{ useSelector(state => state.email) }</h1>
+    </>
   )
 }
