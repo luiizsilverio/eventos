@@ -42,7 +42,10 @@ export default function Login() {
           <Navigate replace to="/" />
       }
       <form className="form-signin mx-auto">
-        <h1 className="h3 mb-3 fw-normal text-secondary fw-bold">Log In</h1>
+        <div className="text-center mb-4">
+          <i class="fa-solid fa-wine-glass-empty fa-5x text-secondary"></i>
+          <h1 className="h3 mb-3 fw-normal text-secondary fw-bold">Log In</h1>
+        </div>
 
         <div className="form-floating my-2">
           <input type="email"
@@ -89,9 +92,9 @@ export default function Login() {
         </div>
 
         <div className="opcoes-login m-4">
-          <a href="/" className="mx-2 text-info">Recuperar Senha</a>
+          <Link to="/recup-senha" className="mx-2">Recuperar Senha</Link>
           <span className="my-span text-info">&#9788;</span>
-          <Link to="/signup" className="mx-2 text-info">Quero Cadastrar</Link>
+          <Link to="/signup" className="mx-2">Quero Cadastrar</Link>
         </div>
       </form>
     </div>

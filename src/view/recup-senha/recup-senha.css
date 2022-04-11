@@ -1,0 +1,9 @@
+.btn-enviar {
+  background-color:  #614EA6;
+  transition: 0.2s;
+}
+
+.btn-enviar:hover {
+  filter: brightness(1.2);
+  transform: scale(0.99);
+}

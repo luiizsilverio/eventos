@@ -8,24 +8,24 @@
 
 .opcoes-login a {
   text-decoration: none;
-  color: #c2c2f2;
+  color: #9292FC;
   transition: 0.2s ease-in;
 }
 
 .opcoes-login a:hover {
-  color: white;
+  color: #A11CA9;
 }
 
 .my-span {
   color: #f2f2c2;
 }
 
-.btn {
+.btn-login {
   background-color:  #614EA6;
   transition: 0.2s;
 }
 
-.btn:hover {
+.btn-login:hover {
   filter: brightness(1.2);
   transform: scale(0.99);
 }
