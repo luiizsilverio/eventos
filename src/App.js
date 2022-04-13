@@ -6,6 +6,7 @@ import Login from './view/login';
 import Signup from './view/signup';
 import Home from './view/home'
 import RecupSenha from './view/recup-senha';
+import Evento from './view/evento';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/recup-senha" element={<RecupSenha />} />
+          <Route path="/evento" element={<Evento />} />
         </Routes>
       </Router>
     </Provider>

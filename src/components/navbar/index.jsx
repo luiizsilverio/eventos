@@ -36,7 +36,7 @@ export default function Navbar() {
               ) : (
                 <>
                   <li className="nav-item">
-                    <Link className="nav-link text-secondary" to="/">Publicar Evento</Link>
+                    <Link className="nav-link text-secondary" to="/evento">Publicar Evento</Link>
                   </li>
 
                   <li className="nav-item">

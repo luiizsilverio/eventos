@@ -11,5 +11,5 @@
 
 .btn-cadastro:hover {
   filter: brightness(1.2);
-  transform: scale(0.99);
+  /* transform: scale(0.99); */
 }
