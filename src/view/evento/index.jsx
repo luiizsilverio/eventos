@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/firestore'
 
@@ -84,18 +83,26 @@ export default function Evento() {
             <div className="form-group">
               <label>Tipo do Evento</label>
               <select
-                defaultValue="--Selecione o Tipo--"
+                defaultValue=""
                 className="form-control"
                 onChange={e => setTipo(e.target.value)}
               >
-                <option disabled>-- Selecione o Tipo --</option>
-                <option>Evento</option>
-                <option>Show</option>
-                <option>Aniversário</option>
-                <option>Casamento</option>
-                <option>Formatura</option>
-                <option>Confraternização</option>
+                <option value="" disabled>-- Selecione o Tipo --</option>
+                <option value="evento">Evento</option>
+                <option value="show">Show</option>
+                <option value="aniversario">Aniversário</option>
+                <option value="casamento">Casamento</option>
+                <option value="formatura">Formatura</option>
+                <option value="confraternizacao">Confraternização</option>
               </select>
+            </div>
+
+            <div className="form-group">
+              <label>Detalhes</label>
+              <textarea rows={3}
+                className="form-control"
+                onChange={e => setDetalhes(e.target.value)}
+              />
             </div>
 
             <div className="form-group d-flex">
