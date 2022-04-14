@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid">
-        <i class="fa-solid fa-wine-glass-empty fa-2x text-secondary me-2"></i>
+        <i className="fa-solid fa-wine-glass-empty fa-2x text-secondary me-2"></i>
         <strong className="navbar-brand text-secondary fw-bold">My-Events</strong>
         <button className="navbar-toggler" type="button"
           data-bs-toggle="collapse"
