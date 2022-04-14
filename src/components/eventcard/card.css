@@ -1,0 +1,40 @@
+.rodape-card {
+  color: #614ea6;
+  height: 35px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-detalhes {
+  background-color: #614ea6;
+  color: white;
+  transition: 0.2s;
+}
+
+.btn-detalhes:hover {
+  color: white;
+  filter: brightness(1.2);
+}
+
+.card-text {
+  max-height: 100px;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eye {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.eye span {
+  margin-left: 8px;
+}
+
+.img-cartao {
+  max-height: 200px;
+  min-width: 100%;
+
+}
