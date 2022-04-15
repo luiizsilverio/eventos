@@ -1,27 +1,41 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import 'firebase/storage'
 
+import firebase from '../../config/firebase'
 import './card.css'
 
-export default function EventCard() {
+export default function EventCard({ id, img, titulo, detalhes, visualizacoes }) {
+  const [urlImg, setUrlImg] = useState("")
+
+  const storage = firebase.storage()
+
+  useEffect(() => {
+      storage.ref(`imagens/${img}`).getDownloadURL()
+        .then((url) => setUrlImg(url))
+        .catch(() => setUrlImg("https://via.placeholder.com/100x50"))
+  }, [urlImg])
+
+
   return (
     <div className='col-md-3 col-sm-12'>
-      <img src="https://via.placeholder.com/100x50"
+      <img src={ urlImg }
         alt="Foto do evento"
         className="card-img-top img-cartao"
       />
       <div className='card-body'>
-        <h5>Título do Evento</h5>
-        <p className='card-text'>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        </p>
+        <h5>{ titulo }</h5>
+        <p className='card-text'>{ detalhes }</p>
 
         <div className="row rodape-card d-flex">
           <div className='col-6'>
-            <Link to="/" className='btn btn-sm btn-detalhes'>+ detalhes</Link>
+            <Link to={`/evento/${id}`}
+              className='btn btn-sm btn-detalhes'>+ detalhes
+            </Link>
           </div>
           <div className="col-6 eye">
-            <i className='fas fa-eye' /><span>2019</span>
+            <i className='fas fa-eye' /><span>{ visualizacoes }</span>
           </div>
         </div>
       </div>
