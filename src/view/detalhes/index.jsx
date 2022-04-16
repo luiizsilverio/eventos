@@ -13,26 +13,53 @@ import Navbar from '../../components/navbar'
 export default function Detalhes(props) {
   const [evento, setEvento] = useState({})
   const [urlImg, setUrlImg] = useState("")
+  const [loading, setLoading] = useState(true)
   const { id } = useParams()
 
   const storage = firebase.storage()
   const db = firebase.firestore()
   const usuario = useSelector(state => state.email)
 
+
   useEffect(() => {
+    setLoading(true)
     db.collection('eventos').doc(id).get()
       .then(response => {
         const dados = response.data()
         setEvento(dados)
 
-        storage.ref(`imagens/${dados.foto}`).getDownloadURL()
-          .then(url => setUrlImg(url))
+        // incrementa o n.o visualizações
+        db.collection('eventos').doc(id).update('visualizacoes', ++dados.visualizacoes)
+
+        if (!dados.foto) {
+          setUrlImg("https://via.placeholder.com/100x50") // foto genérica
+          setLoading(false)
+
+        } else {
+          storage.ref(`imagens/${dados.foto}`).getDownloadURL()
+            .then(url => setUrlImg(url))
+            .then(() => setLoading(false))
+          }
       })
+      .catch(() => setLoading(false))
   }, [])
+
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="spinner-border text-info row m-5" role="status">
+          <span className='sr-only'></span>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
       <Navbar />
+
       <div className="container-fluid">
         <div className="row">
           <img src={urlImg} className='img-banner' alt="Foto" />
