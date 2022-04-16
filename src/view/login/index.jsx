@@ -43,7 +43,7 @@ export default function Login() {
       }
       <form className="form-signin mx-auto">
         <div className="text-center mb-4">
-          <i class="fa-solid fa-wine-glass-empty fa-5x text-secondary"></i>
+          <i className="fa-solid fa-wine-glass-empty fa-5x text-secondary"></i>
           <h1 className="h3 mb-3 fw-normal text-secondary fw-bold">Log In</h1>
         </div>
 

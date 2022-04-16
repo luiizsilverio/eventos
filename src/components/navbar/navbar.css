@@ -1,7 +1,21 @@
 .navbar {
-  background-color: lavender;
+  background-color: #614ea6;
 }
 
 a.nav-link:hover {
   color: white !important;
+}
+
+.navbar-brand {
+  color: BlanchedAlmond !important;
+}
+
+.navbar i {
+  color: BlanchedAlmond !important;
+}
+
+.card-body {
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 import 'firebase/storage'
 
 import firebase from '../../config/firebase'
@@ -19,14 +18,16 @@ export default function EventCard({ id, img, titulo, detalhes, visualizacoes }) 
 
 
   return (
-    <div className='col-md-3 col-sm-12'>
+    <div className='col-md-3 col-sm-12 my-card p-2'>
       <img src={ urlImg }
         alt="Foto do evento"
         className="card-img-top img-cartao"
       />
-      <div className='card-body'>
-        <h5>{ titulo }</h5>
-        <p className='card-text'>{ detalhes }</p>
+      <div className='card-body d-flex'>
+        <div>
+          <h5>{ titulo }</h5>
+          <p className='card-text'>{ detalhes }</p>
+        </div>
 
         <div className="row rodape-card d-flex">
           <div className='col-6'>

@@ -11,8 +11,8 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid">
-        <i className="fa-solid fa-wine-glass-empty fa-2x text-secondary me-2"></i>
-        <strong className="navbar-brand text-secondary fw-bold">My-Events</strong>
+        <i className="fa-solid fa-wine-glass-empty fa-2x me-2"></i>
+        <strong className="navbar-brand fw-bold">My-Events</strong>
         <button className="navbar-toggler" type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -25,26 +25,26 @@ export default function Navbar() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
             <li className="nav-item">
-              <Link className="nav-link text-secondary" to="/">Home</Link>
+              <Link className="nav-link text-white" to="/">Home</Link>
             </li>
 
             {
               useSelector(state => !state.logado) ? (
                 <li className="nav-item">
-                  <Link className="nav-link text-secondary" to="/login">Login</Link>
+                  <Link className="nav-link text-white" to="/login">Login</Link>
                 </li>
               ) : (
                 <>
                   <li className="nav-item">
-                    <Link className="nav-link text-secondary" to="/evento">Publicar Evento</Link>
+                    <Link className="nav-link text-white" to="/evento">Publicar Evento</Link>
                   </li>
 
                   <li className="nav-item">
-                    <Link className="nav-link text-secondary" to="/">Meus Eventos</Link>
+                    <Link className="nav-link text-white" to="/eventos/meus">Meus Eventos</Link>
                   </li>
 
                   <li className="nav-item">
-                    <Link className="nav-link text-secondary" to="/login"
+                    <Link className="nav-link text-white" to="/login"
                       onClick={() => dispatch({ type: 'LOG_OUT' })}
                     >
                       Sair

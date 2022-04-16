@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import 'firebase/storage'
@@ -26,23 +25,44 @@ export default function Evento() {
   const storage = firebase.storage()
   const db = firebase.firestore()
 
+  async function SalvaEvento() {
+    await db.collection('eventos').add({
+      titulo,
+      tipo,
+      detalhes,
+      data,
+      hora,
+      usuario: email,
+      visualizacoes: 0,
+      foto: foto?.name || "",
+      publico: true,
+      created_at: new Date()
+    })
+  }
+
   function handleSave() {
     setLoading(true)
 
+    if (!foto) {
+      SalvaEvento()
+        .then(() => {
+          setErro(false)
+          setMensagem("Evento cadastrado com sucesso")
+        })
+        .catch((erro) => {
+          setErro(true)
+          setMensagem('Não foi possível cadastrar o evento.')
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+
+      return
+    }
+
     storage.ref(`imagens/${foto.name}`).put(foto) // faz upload da imagem
       .then(() => {
-        db.collection('eventos').add({
-          titulo,
-          tipo,
-          detalhes,
-          data,
-          hora,
-          usuario: email,
-          visualizacoes: 0,
-          foto: foto.name,
-          publico: true,
-          created_at: new Date()
-        })
+        SalvaEvento()
 
         .then(() => {
           setErro(false)
