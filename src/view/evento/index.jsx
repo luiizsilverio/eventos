@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import 'firebase/storage'
 import 'firebase/firestore'
@@ -8,11 +9,12 @@ import './evento.css'
 import firebase from '../../config/firebase'
 import Navbar from '../../components/navbar'
 
-export default function Evento() {
+export default function Evento(props) {
   const [loading, setLoading] = useState(false)
   const [erro, setErro] = useState(false)
   const [mensagem, setMensagem] = useState("")
 
+  const { id } = useParams()
   const email = useSelector(state => state.email)
 
   const [titulo, setTitulo] = useState('')
@@ -20,12 +22,13 @@ export default function Evento() {
   const [detalhes, setDetalhes] = useState('')
   const [data, setData] = useState(new Date())
   const [hora, setHora] = useState('')
-  const [foto, setFoto] = useState('')
+  const [fotoAtual, setFotoAtual] = useState('')
+  const [fotoNova, setFotoNova] = useState('')
 
   const storage = firebase.storage()
   const db = firebase.firestore()
 
-  async function SalvaEvento() {
+  async function IncluiEvento() {
     await db.collection('eventos').add({
       titulo,
       tipo,
@@ -34,17 +37,18 @@ export default function Evento() {
       hora,
       usuario: email,
       visualizacoes: 0,
-      foto: foto?.name || "",
+      foto: fotoNova?.name || "",
       publico: true,
       created_at: new Date()
     })
   }
 
-  function handleSave() {
+
+  function handleSaveNew() {
     setLoading(true)
 
-    if (!foto) {
-      SalvaEvento()
+    if (!fotoNova) {
+      IncluiEvento()
         .then(() => {
           setErro(false)
           setMensagem("Evento cadastrado com sucesso")
@@ -60,9 +64,10 @@ export default function Evento() {
       return
     }
 
-    storage.ref(`imagens/${foto.name}`).put(foto) // faz upload da imagem
+    // faz upload da imagem
+    storage.ref(`imagens/${fotoNova.name}`).put(fotoNova)
       .then(() => {
-        SalvaEvento()
+        IncluiEvento()
 
         .then(() => {
           setErro(false)
@@ -85,27 +90,81 @@ export default function Evento() {
       })
   }
 
+
+  async function AlteraEvento() {
+    setLoading(true)
+
+    if (fotoNova) {
+      await storage.ref(`imagens/${fotoNova.name}`).put(fotoNova)
+    }
+
+    db.collection('eventos').doc(id).update({
+      titulo,
+      tipo,
+      detalhes,
+      data,
+      hora,
+      foto: fotoNova ? fotoNova.name : fotoAtual
+    })
+    .then(() => {
+      setErro(false)
+      setMensagem("Evento alterado com sucesso")
+    })
+    .catch((erro) => {
+      setErro(true)
+      setMensagem('Não foi possível salvar o evento.')
+    })
+    .finally(() => {
+      setLoading(false)
+    })
+  }
+
+
+  useEffect(() => {
+    if (id) {
+      setLoading(true)
+      db.collection('eventos').doc(id).get()
+        .then(response => {
+          const dados = response.data()
+          setTitulo(dados.titulo)
+          setTipo(dados.tipo)
+          setData(dados.data)
+          setHora(dados.hora)
+          setDetalhes(dados.detalhes)
+          setFotoAtual(dados.foto)
+        })
+      .finally(() => setLoading(false))
+    }
+  }, [id])
+
+
   return (
     <>
       <Navbar />
       <div className="d-flex mt-5 box">
         <div className="row mx-auto col-11">
           <form>
-            <legend className='h3 fw-bold text-center'>Novo Evento</legend>
+            <legend className='h3 fw-bold text-center'>
+              {
+                id ? "Alterar Evento" : "Novo Evento"
+              }
+            </legend>
             <div className="form-group">
               <label>Título</label>
               <input type="text"
                 className="form-control"
                 onChange={e => setTitulo(e.target.value)}
+                value={titulo}
               />
             </div>
 
             <div className="form-group">
               <label>Tipo do Evento</label>
               <select
-                defaultValue=""
+                // defaultValue=""
                 className="form-control"
                 onChange={e => setTipo(e.target.value)}
+                value={tipo}
               >
                 <option value="" disabled>-- Selecione o Tipo --</option>
                 <option value="evento">Evento</option>
@@ -122,6 +181,7 @@ export default function Evento() {
               <textarea rows={3}
                 className="form-control"
                 onChange={e => setDetalhes(e.target.value)}
+                value={detalhes}
               />
             </div>
 
@@ -131,6 +191,7 @@ export default function Evento() {
                 <input type="date"
                   className="form-control"
                   onChange={e => setData(e.target.value)}
+                  value={data}
                 />
               </div>
               <div className="col-4">
@@ -138,21 +199,25 @@ export default function Evento() {
                 <input type="time"
                   className="form-control"
                   onChange={e => setHora(e.target.value)}
+                  value={hora}
                 />
               </div>
             </div>
 
             <div className="form-group">
-              <label>Imagem</label>
+              <label>
+                Imagem {id && '(caso queira manter a foto atual, não precisa clicar)'}
+              </label>
               <input type="file"
                 className="form-control"
-                onChange={e => setFoto(e.target.files[0])}
+                onChange={e => setFotoNova(e.target.files[0])}
+                // value={foto}
               />
             </div>
 
             <div className="row mx-auto my-4">
               <button type="button"
-                onClick={handleSave}
+                onClick={ id ? AlteraEvento : handleSaveNew }
                 className={`
                   btn btn-lg text-white btn-cadastro
                   ${loading && "disabled"}

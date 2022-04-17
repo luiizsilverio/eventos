@@ -21,6 +21,7 @@ function App() {
           <Route path="/recup-senha" element={<RecupSenha />} />
           <Route path="/evento" element={<Evento />} />
           <Route path="/evento/:id" element={<Detalhes />} />
+          <Route path="/editar/:id" element={<Evento />} />
         </Routes>
       </Router>
     </Provider>

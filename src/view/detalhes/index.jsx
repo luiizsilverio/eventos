@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
 
 import 'firebase/storage'
 import 'firebase/firestore'
@@ -14,11 +15,45 @@ export default function Detalhes(props) {
   const [evento, setEvento] = useState({})
   const [urlImg, setUrlImg] = useState("")
   const [loading, setLoading] = useState(true)
+  const [excluido, setExcluido] = useState(false)
   const { id } = useParams()
 
   const storage = firebase.storage()
   const db = firebase.firestore()
   const usuario = useSelector(state => state.email)
+
+  function removerEvento() {
+    setLoading(true)
+    db.collection('eventos').doc(id).delete()
+      .then(() => {
+        if (urlImg && urlImg !== "https://via.placeholder.com/100x50") {
+          storage.ref(`imagens/${evento.foto}`).delete()
+        }
+        setLoading(false)
+        setExcluido(true)
+      })
+      .catch(() => setLoading(false))
+  }
+
+  function confirmaExclusao() {
+    toast((t) => (
+      <span>
+        <b>Confirma Excluir o Evento?</b>
+        <br />
+        <button className="btn btn-danger my-4 mx-1" onClick={() => {
+          toast.dismiss(t.id)
+          removerEvento()
+        }}>
+          Confirma
+        </button>
+        <button className="btn btn-info m-4 text-white"
+          onClick={() => toast.dismiss(t.id)}
+        >
+          Cancela
+        </button>
+      </span>
+    ));
+  }
 
 
   useEffect(() => {
@@ -56,9 +91,16 @@ export default function Detalhes(props) {
     )
   }
 
+  if (excluido) {
+    return (
+      <Navigate replace to="/" />
+    )
+  }
+
   return (
     <>
       <Navbar />
+      <Toaster />
 
       <div className="container-fluid">
         <div className="row">
@@ -95,9 +137,17 @@ export default function Detalhes(props) {
 
         {
           usuario === evento.usuario && (
-            <Link to="/" className='btn-editar'>
-              <i className='fa-solid fa-square-pen fa-3x' />
-            </Link>
+            <div className='acoes'>
+              <Link to={`/editar/${id}`} className='btn-editar' title="Alterar o Evento">
+                <i className='fa-solid fa-square-pen fa-3x text-primary' />
+              </Link>
+              <button
+                onClick={confirmaExclusao}
+                className='btn btn-editar' title="Excluir o Evento"
+              >
+                <i class="fa-solid fa-trash-can fa-3x text-danger"></i>
+              </button>
+            </div>
           )
         }
       </div>
