@@ -14,6 +14,10 @@
   align-items: center;
 }
 
+.box-info span {
+  font-size: 1.7rem;
+}
+
 .box-detalhes p {
   text-align: justify;
 }
