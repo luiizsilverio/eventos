@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <td><img src="https://github.com/luiizsilverio/eventos/blob/main/public/logo.svg" style='color: "#614ea6"'/></td>
+    <td><img src="https://github.com/luiizsilverio/eventos/blob/main/public/logo.svg" width="48" /></td>
     <td><h1>MY-EVENTS</h1></td>
   </tr>
 </table>
