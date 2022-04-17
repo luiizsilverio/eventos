@@ -23,6 +23,7 @@ Foi desenvolvido durante o curso [ReactJS + Firebase + Bootstrap: projeto passo 
 * __Redux.js__
 * __Bootstrap__
 * __Firebase__ (Auth/FireStore/Storage)
+* Rotas com __React-Router-Dom__
 
 ## :camera_flash: Screenshots
 ![](https://github.com/luiizsilverio/eventos/blob/main/public/my-events.gif)
